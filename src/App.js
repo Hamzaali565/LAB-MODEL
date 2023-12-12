@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Sidebar from "./components/SideBar/Sidebar";
 import Header from "./components/Header/Header";
+import Input from "./components/Inputs/Input";
+import LabelInput from "./components/Inputs/LabelInput";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -16,7 +18,9 @@ function App() {
         <div className={show ? "hidden" : "flex"}>
           <Sidebar />
         </div>
-        <div className="container">hi!..............................</div>
+        <div className="container">
+          <LabelInput />
+        </div>
       </div>
     </div>
   );
