@@ -1,126 +1,185 @@
 [
   {
-    "title": "General",
+    "title": "Lab",
     "icon": "uil uil-flask-potion",
     "childrens": [
       {
-        "title": "Home",
-        "icon": "uil uil-flask-potion",
-        "path": "/"
-      },
-      {
-        "title": "About",
-        "icon": "uil uil-flask-potion",
-        "path": "/about"
-      },
-      {
-        "title": "Contact",
-        "icon": "uil uil-flask-potion",
+        "title": "Masters",
         "childrens": [
           {
-            "title": "Facebook",
-            "icon": "uil uil-flask-potion"
+            "title": "Test",
+            "path": "/"
           },
           {
-            "title": "Twitter",
-            "icon": "uil uil-flask-potion"
+            "title": "Group",
+            "path": "/"
           },
           {
-            "title": "Instagram",
-            "icon": "uil uil-flask-potion"
+            "title": "Party Wise Lab Charges",
+            "path": "/"
+          },
+          {
+            "title": "Department Wise Remarks",
+            "path": "/"
+          },
+          {
+            "title": "Microbiology Refrences",
+            "path": "/"
+          },
+          {
+            "title": "Fixed Values",
+            "path": "/"
+          },
+          {
+            "title": "User Wise Department Mapping",
+            "path": "/"
+          },
+          {
+            "title": "Morphology",
+            "path": "/"
           }
         ]
       },
       {
-        "title": "FAQ",
-        "icon": "uil uil-flask-potion"
-      }
-    ]
-  },
-  {
-    "title": "Account",
-    "icon": "uil uil-flask-potion",
-    "childrens": [
-      {
-        "title": "Login",
-        "path": "/login"
-      },
-      {
-        "title": "Register",
-        "path": "/register"
-      },
-      {
-        "title": "Forgot Password",
-        "path": "/forgot-password"
-      },
-      {
-        "title": "Reset Password",
-        "path": "/reset-password"
-      }
-    ]
-  },
-  {
-    "title": "Profile",
-    "icon": "uil uil-flask-potion",
-    "childrens": [
-      {
-        "title": "Profile",
-        "path": "/profile"
-      },
-      {
-        "title": "Settings",
+        "title": "Transaction",
         "childrens": [
           {
-            "title": "Account",
-            "path": "/settings/account"
+            "title": "Test Booking / Payment Reciept",
+            "path": "/"
           },
           {
-            "title": "Billing",
-            "childrens": [
-              {
-                "title": "Payment",
-                "path": "/settings/billing/payment"
-              },
-              {
-                "title": "Subscription",
-                "path": "/settings/billing/subscription"
-              }
-            ]
+            "title": "Test Requisition",
+            "path": "/"
           },
           {
-            "title": "Notifications",
-            "path": "/settings/notifications"
+            "title": "Sample Collection",
+            "path": "/"
+          },
+          {
+            "title": "Sample Recieved",
+            "path": "/"
+          },
+          {
+            "title": "Laboratory Result Reversal",
+            "path": "/"
+          },
+          {
+            "title": "Laboratory Consumption",
+            "path": "/"
           }
         ]
       },
       {
-        "title": "Logout",
-        "path": "/logout"
-      }
-    ]
-  },
-  {
-    "title": "Advance",
-    "icon": "uil uil-flask-potion",
-    "childrens": [
-      {
-        "title": "Search",
-        "path": "/search"
+        "title": "Test Result",
+        "childrens": [
+          {
+            "title": "Biochemistry",
+            "path": "/"
+          },
+          {
+            "title": "Microbiology",
+            "path": "/"
+          },
+          {
+            "title": "Cytology",
+            "path": "/"
+          },
+          {
+            "title": "Chemical Pathology",
+            "path": "/"
+          },
+          {
+            "title": "Haematology",
+            "path": "/"
+          },
+          {
+            "title": "Serology",
+            "path": "/"
+          },
+          {
+            "title": "Parasitology",
+            "path": "/"
+          }
+        ]
       },
       {
-        "title": "History",
-        "path": "/history"
+        "title": "Lab Results Edit",
+        "childrens": [
+          {
+            "title": "Biochemistry Edit",
+            "path": "/"
+          },
+          {
+            "title": "Microbiology Edit",
+            "path": "/"
+          },
+          {
+            "title": "Cytology Edit",
+            "path": "/"
+          },
+          {
+            "title": "Haematology Edit",
+            "path": "/"
+          },
+          {
+            "title": "Chemical Pathology Edit",
+            "path": "/"
+          },
+          {
+            "title": "Parasitology Edit",
+            "path": "/"
+          },
+          {
+            "title": "Serology Edit",
+            "path": "/"
+          }
+        ]
+      },
+      {
+        "title": "Reports",
+        "childrens": [
+          {
+            "title": "Test Traking Status",
+            "path": "/"
+          },
+          {
+            "title": "Bar-Code Re-Print",
+            "path": "/"
+          },
+          {
+            "title": "Test Status",
+            "path": "/"
+          },
+          {
+            "title": "Lab Report",
+            "path": "/"
+          },
+          {
+            "title": "Department Wise Pending Results",
+            "path": "/"
+          },
+          {
+            "title": "Revenue Statment",
+            "path": "/"
+          },
+          {
+            "title": "List Of Outstanding",
+            "path": "/"
+          },
+          {
+            "title": "Consumption Report",
+            "path": "/"
+          },
+          {
+            "title": "Test Wise Revenue",
+            "path": "/"
+          },
+          {
+            "title": "Consultant Wise Count",
+            "path": "/"
+          }
+        ]
       }
     ]
-  },
-  {
-    "title": "Support",
-    "icon": "uil uil-flask-potion",
-    "path": "/support"
-  },
-  {
-    "title": "Report Bug",
-    "icon": "uil uil-flask-potion",
-    "path": "/report-bug"
   }
 ]
