@@ -2,7 +2,7 @@ import React from "react";
 import Input from "./Input";
 import Select from "react-select";
 
-const LabledDropDown = ({ label, options, onChange }) => {
+const LabledDropDown = ({ label, options, onChange, value }) => {
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -26,6 +26,7 @@ const LabledDropDown = ({ label, options, onChange }) => {
         options={options}
         styles={customStyles}
         onChange={onChange}
+        value={value}
       />
     </div>
   );

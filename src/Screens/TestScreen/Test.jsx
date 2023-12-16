@@ -5,6 +5,7 @@ import TextArea from "../../components/Inputs/TextArea";
 import Button from "../../components/Buttons/Button";
 
 const Test = () => {
+  const [selectedEquip, setSelectedEquip] = useState(null);
   const [rangeInfo, setRangeInfo] = useState([
     {
       equipment: "",
@@ -82,7 +83,6 @@ const Test = () => {
       // Handle other cases (text input, number input, etc.)
       value = e.target.value;
     }
-
     setRangeInfo((prevRangeInfo) => {
       const updatedItems = [...prevRangeInfo];
       if (updatedItems[index]) {
@@ -112,9 +112,11 @@ const Test = () => {
       },
     ]);
   };
-
+  const onChange = (selectedOption) => {
+    setSelectedEquip(selectedOption);
+  };
   return (
-    <div className="w-auto">
+    <div className="overflow-hidden">
       {/* test Information */}
       <div className="border-black border-2 mx-2">
         <h1 className="flex justify-center mt-2 underline font-bold">
@@ -177,6 +179,7 @@ const Test = () => {
                 type={"number"}
                 placeholder={"To Age"}
                 onChange={(e) => handleInputChange(e, index, "toAge")}
+                value={rangeInfo[index].toAge}
               />
               <LabledDropDown
                 options={optionsAgeType}
@@ -188,6 +191,7 @@ const Test = () => {
               <LabelInput
                 label={"Min"}
                 type={"number"}
+                value={rangeInfo[index].min}
                 placeholder={"Min"}
                 onChange={(e) => handleInputChange(e, index, "min")}
               />
@@ -196,23 +200,58 @@ const Test = () => {
                 type={"number"}
                 placeholder={"Max"}
                 onChange={(e) => handleInputChange(e, index, "max")}
+                value={rangeInfo[index].max}
               />
               <LabelInput
                 label={"Unit"}
                 type={"text"}
                 placeholder={"Unit"}
                 onChange={(e) => handleInputChange(e, index, "unit")}
+                value={rangeInfo[index].unit}
               />
               <TextArea
                 placeholder="Normal Ranges"
                 label="normal Ranges"
                 onChange={(e) => handleInputChange(e, index, "normalRanges")}
+                value={rangeInfo[index].normalRanges}
               />
             </React.Fragment>
           ))}
         </div>
         <div className="flex justify-center">
           <Button onClick={prev} title={"Add"} />
+        </div>
+      </div>
+      {/* Preview */}
+      <div className="border-2 border-black mx-2 mt-4">
+        <h1 className="flex justify-center mt-2 underline font-bold">
+          Ranges Preview
+        </h1>
+        <div className="border-2 m-2 flex ">
+          <p className="w-24 hidden md:flex justify-center">S.No</p>
+          <p className="w-30 hidden md:flex justify-center">Equipment</p>
+          <p className="w-24 lg:flex justify-center">Gender</p>
+          <p className="w-20 hidden md:flex justify-center">Min</p>
+          <p className="w-20 hidden md:flex justify-center">Max</p>
+          <p className="w-20 lg:flex justify-center">Unit</p>
+          <p className="w-24 lg:flex justify-center">From Age</p>
+          <p className="w-24 lg:flex justify-center">To Age</p>
+          <p className="w-24 lg:flex justify-center">Age Type</p>
+          <p className="md:w-72 lg:w-96 lg:flex justify-center">
+            Normal Ranges
+          </p>
+        </div>
+        <div className="border-2 m-2 flex ">
+          <p className="w-24 hidden lg:flex justify-center">1</p>
+          <p className="w-30 hidden lg:flex justify-center">Equipment</p>
+          <p className="w-24 flex justify-center">Male</p>
+          <p className="w-20 hidden lg:flex justify-center">1</p>
+          <p className="w-20 hidden lg:flex justify-center">23</p>
+          <p className="w-20 flex justify-center">Lama Dev</p>
+          <p className="w-24 flex justify-center">20</p>
+          <p className="w-24 flex justify-center">105</p>
+          <p className="w-24 flex justify-center">Month(s)</p>
+          <p className="md:w-72 lg:w-96 lg:flex justify-center">True</p>
         </div>
       </div>
     </div>

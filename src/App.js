@@ -9,7 +9,7 @@ function App() {
   const [show, setShow] = useState(false);
 
   return (
-    <div>
+    <div className="bg-slate-800">
       <Header
         onClick={() => {
           setShow(!show);
