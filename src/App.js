@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Sidebar from "./components/SideBar/Sidebar";
 import Header from "./components/Header/Header";
-import Input from "./components/Inputs/Input";
-import LabelInput from "./components/Inputs/LabelInput";
 import Test from "./Screens/TestScreen/Test";
 
 function App() {

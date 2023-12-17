@@ -1,5 +1,4 @@
 import React from "react";
-import Input from "./Input";
 import Select from "react-select";
 
 const LabledDropDown = ({ label, options, onChange, value }) => {

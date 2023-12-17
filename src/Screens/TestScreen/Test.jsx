@@ -6,6 +6,7 @@ import Button from "../../components/Buttons/Button";
 
 const Test = () => {
   const [selectedEquip, setSelectedEquip] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
   const [rangeInfo, setRangeInfo] = useState([
     {
       equipment: "",
@@ -34,7 +35,7 @@ const Test = () => {
   ]);
 
   useEffect(() => {
-    console.log(rangeInfo);
+    // console.log(rangeInfo);
   }, [rangeInfo]);
   const options = [
     { value: "Biochemistry", label: "Biochemistry" },
@@ -65,16 +66,9 @@ const Test = () => {
     { value: "Month(s)", label: "Month(s)" },
     { value: "Year(s)", label: "Year(s)" },
   ];
-  //   const handleInputChange = (selectedOption, index, field) => {
-  //     const updatedItems = [...rangeInfo];
-  //     if (updatedItems[index]) {
-  //       const newItem = { ...updatedItems[index], [field]: selectedOption.value };
-  //       updatedItems[index] = newItem;
-  //       setRangeInfo(updatedItems);
-  //       console.log(rangeInfo);
-  //     }
-  //   };
+
   const handleInputChange = (e, index, field, type) => {
+    setErrorMessage("");
     let value;
     if (type === "select") {
       // Handle the case when the input is a dropdown/select
@@ -89,31 +83,61 @@ const Test = () => {
         const newItem = { ...updatedItems[index], [field]: value };
         updatedItems[index] = newItem;
       }
-      console.log(updatedItems);
+      //   console.log(updatedItems);
       //   setPreview(rangeInfo);
       return updatedItems;
     });
   };
 
   const prev = () => {
-    setPreview([...previewInfo, rangeInfo]);
-    console.log("previewInfo", previewInfo);
-    setRangeInfo([
-      {
-        equipment: "",
-        min: "",
-        max: "",
-        fromAge: "",
-        toAge: "",
-        unit: "",
-        normalRanges: "",
-        gender: "",
-        ageType: "",
-      },
-    ]);
-  };
-  const onChange = (selectedOption) => {
-    setSelectedEquip(selectedOption);
+    const { ageType, fromAge, toAge, gender } = rangeInfo[0];
+    // Empty Fields Check
+    const params = ["equipment", "gender", "fromAge", "toAge", "ageType"];
+    for (const param of params) {
+      if (rangeInfo[0][param] === "") {
+        setErrorMessage(`${param} is required.`);
+        console.log(errorMessage);
+        return;
+      }
+    }
+    // age Greaters Check
+    if (toAge < fromAge) {
+      setErrorMessage("From Age must be less than or equal To Age.");
+    } else if (fromAge <= 0 || toAge <= 0) {
+      setErrorMessage("From Age And To Age Must be greater than 1.");
+    }
+    // duplicate Check
+    const duplicate = previewInfo.some(
+      (item) =>
+        item.gender === gender &&
+        item.fromAge === fromAge &&
+        item.toAge === toAge &&
+        item.ageType === ageType
+    );
+
+    if (duplicate) {
+      // Display your error message or take necessary action
+      console.error("Duplicate entry found!");
+      setErrorMessage("Gender With Same Age Group not Allowed Twise!");
+      return;
+    }
+    // avoiding first empty index but failed
+    if (Object.keys(previewInfo[0]).length === 0) {
+      setPreview(rangeInfo);
+    } else {
+      setPreview([...previewInfo, ...rangeInfo]);
+    }
+
+    // setRangeInfo([
+    //   {
+    //     min: "",
+    //     max: "",
+    //     fromAge: "",
+    //     toAge: "",
+    //     unit: "",
+    //     normalRanges: "",
+    //   },
+    // ]);
   };
   return (
     <div className="overflow-hidden">
@@ -218,41 +242,63 @@ const Test = () => {
             </React.Fragment>
           ))}
         </div>
-        <div className="flex justify-center">
+
+        <div className="flex justify-center mb-2">
           <Button onClick={prev} title={"Add"} />
         </div>
+        {errorMessage && (
+          <p className="flex justify-center font-bold text-red-600 text-xs md:text-sm">
+            *{errorMessage}*
+          </p>
+        )}
       </div>
       {/* Preview */}
       <div className="border-2 border-black mx-2 mt-4">
         <h1 className="flex justify-center mt-2 underline font-bold">
           Ranges Preview
         </h1>
-        <div className="border-2 m-2 flex ">
-          <p className="w-24 hidden md:flex justify-center">S.No</p>
-          <p className="w-30 hidden md:flex justify-center">Equipment</p>
-          <p className="w-24 lg:flex justify-center">Gender</p>
-          <p className="w-20 hidden md:flex justify-center">Min</p>
-          <p className="w-20 hidden md:flex justify-center">Max</p>
-          <p className="w-20 lg:flex justify-center">Unit</p>
-          <p className="w-24 lg:flex justify-center">From Age</p>
-          <p className="w-24 lg:flex justify-center">To Age</p>
-          <p className="w-24 lg:flex justify-center">Age Type</p>
-          <p className="md:w-72 lg:w-96 lg:flex justify-center">
+        {/* Header Preview */}
+        <div className="border-4 py-2 m-2 flex ">
+          <p className="w-24 font-bold hidden md:flex justify-center">S.No</p>
+          <p className="w-30 font-bold hidden md:flex justify-center">
+            Equipment
+          </p>
+          <p className="w-24 font-bold lg:flex justify-center">Gender</p>
+          <p className="w-20 font-bold hidden md:flex justify-center">Min</p>
+          <p className="w-20 font-bold hidden md:flex justify-center">Max</p>
+          <p className="w-20 font-bold lg:flex justify-center">Unit</p>
+          <p className="w-24 font-bold lg:flex justify-center">From Age</p>
+          <p className="w-24 font-bold lg:flex justify-center">To Age</p>
+          <p className="w-24 font-bold lg:flex justify-center">Age Type</p>
+          <p className="font-bold md:w-72 lg:w-96 lg:flex justify-center">
             Normal Ranges
           </p>
         </div>
-        <div className="border-2 m-2 flex ">
-          <p className="w-24 hidden lg:flex justify-center">1</p>
-          <p className="w-30 hidden lg:flex justify-center">Equipment</p>
-          <p className="w-24 flex justify-center">Male</p>
-          <p className="w-20 hidden lg:flex justify-center">1</p>
-          <p className="w-20 hidden lg:flex justify-center">23</p>
-          <p className="w-20 flex justify-center">Lama Dev</p>
-          <p className="w-24 flex justify-center">20</p>
-          <p className="w-24 flex justify-center">105</p>
-          <p className="w-24 flex justify-center">Month(s)</p>
-          <p className="md:w-72 lg:w-96 lg:flex justify-center">True</p>
-        </div>
+        {previewInfo.map(
+          (items, i) =>
+            items.equipment && (
+              <div className="border-2 m-2 flex " key={i}>
+                <p className="w-24 hidden lg:flex justify-center">{i}</p>
+                <p className="w-30 hidden lg:flex justify-center">
+                  {items.equipment}
+                </p>
+                <p className="w-24 flex justify-center">{items.gender}</p>
+                <p className="w-20 hidden lg:flex justify-center">
+                  {items.min}
+                </p>
+                <p className="w-20 hidden lg:flex justify-center">
+                  {items.max}
+                </p>
+                <p className="w-20 flex justify-center">{items.unit}</p>
+                <p className="w-24 flex justify-center">{items.fromAge}</p>
+                <p className="w-24 flex justify-center">{items.toAge}</p>
+                <p className="w-24 flex justify-center">{items.ageType}</p>
+                <p className="md:w-72 lg:w-96 lg:flex justify-center">
+                  {items.normalRanges.length > 0 ? "True" : "-"}
+                </p>
+              </div>
+            )
+        )}
       </div>
     </div>
   );
