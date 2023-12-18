@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { ErrorAlert, SuccessAlert } from "../../components/Alert/Alerts";
 
 const Test = () => {
-  const [selectedEquip, setSelectedEquip] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [testName, setTestName] = useState("");
   const [department, setDepartment] = useState("");
