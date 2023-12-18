@@ -3,10 +3,19 @@ import LabelInput from "../../components/Inputs/LabelInput";
 import LabledDropDown from "../../components/Inputs/LabledDropDown";
 import TextArea from "../../components/Inputs/TextArea";
 import Button from "../../components/Buttons/Button";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { ErrorAlert, SuccessAlert } from "../../components/Alert/Alerts";
 
 const Test = () => {
   const [selectedEquip, setSelectedEquip] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [testName, setTestName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [category, setCategory] = useState("");
+  const [reportDays, setReportDays] = useState("");
+  const [testType, setTestType] = useState("");
   const [rangeInfo, setRangeInfo] = useState([
     {
       equipment: "",
@@ -127,17 +136,57 @@ const Test = () => {
     } else {
       setPreview([...previewInfo, ...rangeInfo]);
     }
-
-    // setRangeInfo([
-    //   {
-    //     min: "",
-    //     max: "",
-    //     fromAge: "",
-    //     toAge: "",
-    //     unit: "",
-    //     normalRanges: "",
-    //   },
-    // ]);
+  };
+  const empty = () => {
+    setRangeInfo([
+      {
+        equipment: "",
+        min: "",
+        max: "",
+        fromAge: "",
+        toAge: "",
+        unit: "",
+        normalRanges: "",
+      },
+    ]);
+    setReportDays("");
+    setCategory("");
+    setDepartment("");
+    setTestName("");
+    setTestType("");
+    setPreview([
+      {
+        equipment: "",
+        min: "",
+        max: "",
+        fromAge: "",
+        toAge: "",
+        unit: "",
+        normalRanges: "",
+        gender: "",
+        ageType: "",
+      },
+    ]);
+  };
+  const url = useSelector((state) => state.url);
+  const sendData = async () => {
+    try {
+      let response = await axios.post(`${url}/labtest`, {
+        testName,
+        testType,
+        category,
+        department,
+        reportDays,
+        testRanges: previewInfo.filter((items) => items.equipment !== ""),
+      });
+      console.log("response", response);
+      SuccessAlert({ text: response.data.message, timer: 2000 });
+      empty();
+    } catch (error) {
+      console.log("Error", error);
+      ErrorAlert({ text: error.response.data.message, timer: 3000 });
+      console.log("prevInfo", previewInfo);
+    }
   };
   return (
     <div className="overflow-hidden">
@@ -153,15 +202,44 @@ const Test = () => {
             placeholder={"Test code"}
             value={"T-001"}
           />
-          <LabelInput label={"Test Name"} placeholder={"Type Test Name"} />
-          <LabledDropDown options={options} label={"Department"} />
-          <LabledDropDown options={optionsCategory} label={"Category"} />
+          <LabelInput
+            label={"Test Name"}
+            placeholder={"Type Test Name"}
+            value={testName}
+            onChange={(e) => {
+              setTestName(e.target.value);
+            }}
+          />
+          <LabledDropDown
+            options={options}
+            label={"Department"}
+            onChange={(e) => {
+              setDepartment(e.value);
+            }}
+          />
+          <LabledDropDown
+            options={optionsCategory}
+            label={"Category"}
+            onChange={(e) => {
+              setCategory(e.value);
+            }}
+          />
           <LabelInput
             label={"Report Days"}
             type={"number"}
             placeholder={"Type Days"}
+            onChange={(e) => {
+              setReportDays(e.target.value);
+            }}
+            value={reportDays}
           />
-          <LabledDropDown options={optionsType} label={"Test Type"} />
+          <LabledDropDown
+            options={optionsType}
+            label={"Test Type"}
+            onChange={(e) => {
+              setTestType(e.value);
+            }}
+          />
         </div>
       </div>
       {/* Test Range Information */}
@@ -175,6 +253,7 @@ const Test = () => {
               <LabledDropDown
                 options={optionsEquip}
                 label={"Equipment"}
+                selectedOption={_.equipment === "" ? null : _.equipment}
                 onChange={(selectedOption) =>
                   handleInputChange(
                     selectedOption,
@@ -245,6 +324,7 @@ const Test = () => {
 
         <div className="flex justify-center mb-2">
           <Button onClick={prev} title={"Add"} />
+          <Button onClick={sendData} title={"Adda"} />
         </div>
         {errorMessage && (
           <p className="flex justify-center font-bold text-red-600 text-xs md:text-sm">
@@ -274,31 +354,32 @@ const Test = () => {
             Normal Ranges
           </p>
         </div>
-        {previewInfo.map(
-          (items, i) =>
-            items.equipment && (
-              <div className="border-2 m-2 flex " key={i}>
-                <p className="w-24 hidden lg:flex justify-center">{i}</p>
-                <p className="w-30 hidden lg:flex justify-center">
-                  {items.equipment}
-                </p>
-                <p className="w-24 flex justify-center">{items.gender}</p>
-                <p className="w-20 hidden lg:flex justify-center">
-                  {items.min}
-                </p>
-                <p className="w-20 hidden lg:flex justify-center">
-                  {items.max}
-                </p>
-                <p className="w-20 flex justify-center">{items.unit}</p>
-                <p className="w-24 flex justify-center">{items.fromAge}</p>
-                <p className="w-24 flex justify-center">{items.toAge}</p>
-                <p className="w-24 flex justify-center">{items.ageType}</p>
-                <p className="md:w-72 lg:w-96 lg:flex justify-center">
-                  {items.normalRanges.length > 0 ? "True" : "-"}
-                </p>
-              </div>
-            )
-        )}
+        {previewInfo &&
+          previewInfo.map(
+            (items, i) =>
+              items.equipment && (
+                <div className="border-2 m-2 flex " key={i}>
+                  <p className="w-24 hidden lg:flex justify-center">{i}</p>
+                  <p className="w-30 hidden lg:flex justify-center">
+                    {items.equipment}
+                  </p>
+                  <p className="w-24 flex justify-center">{items.gender}</p>
+                  <p className="w-20 hidden lg:flex justify-center">
+                    {items.min}
+                  </p>
+                  <p className="w-20 hidden lg:flex justify-center">
+                    {items.max}
+                  </p>
+                  <p className="w-20 flex justify-center">{items.unit}</p>
+                  <p className="w-24 flex justify-center">{items.fromAge}</p>
+                  <p className="w-24 flex justify-center">{items.toAge}</p>
+                  <p className="w-24 flex justify-center">{items.ageType}</p>
+                  <p className="md:w-72 lg:w-96 lg:flex justify-center">
+                    {items.normalRanges.length > 0 ? "True" : "-"}
+                  </p>
+                </div>
+              )
+          )}
       </div>
     </div>
   );
