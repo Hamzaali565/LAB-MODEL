@@ -2,6 +2,7 @@ import { useState } from "react";
 import Sidebar from "./components/SideBar/Sidebar";
 import Header from "./components/Header/Header";
 import Test from "./Screens/TestScreen/Test";
+import Group from "./Screens/Master/GroupScreen/Group";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -19,7 +20,8 @@ function App() {
           <Sidebar />
         </div>
         <div className="container">
-          <Test />
+          {/* <Test /> */}
+          <Group />
         </div>
       </div>
     </div>

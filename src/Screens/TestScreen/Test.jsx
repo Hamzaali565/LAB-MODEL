@@ -183,7 +183,18 @@ const Test = () => {
       empty();
     } catch (error) {
       console.log("Error", error);
-      ErrorAlert({ text: error.response.data.message, timer: 3000 });
+      if (error.code === "ERR_BAD_REQUEST") {
+        ErrorAlert({
+          text: error.response.data.message,
+          timer: 3000,
+        });
+      } else {
+        ErrorAlert({
+          text: "Check Your internet connection",
+          timer: 3000,
+        });
+      }
+
       console.log("prevInfo", previewInfo);
     }
   };
