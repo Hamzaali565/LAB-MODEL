@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Button from "../../../components/Buttons/Button";
 import LabledDropDown from "../../../components/Inputs/LabledDropDown";
 import LabelInput from "../../../components/Inputs/LabelInput";
+import Pagination from "../../../components/Pagination/Pagination";
+import Pagination2 from "../../../components/Pagination/Pagination";
 
 const Group = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -78,6 +80,7 @@ const Group = () => {
         />
       </div>
       <Button title="Reset" onClick={handleReset} />
+      <Pagination2 department={selectedOption.value} />
     </div>
   );
 };
