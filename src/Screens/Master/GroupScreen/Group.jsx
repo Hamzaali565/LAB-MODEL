@@ -80,7 +80,7 @@ const Group = () => {
         />
       </div>
       <Button title="Reset" onClick={handleReset} />
-      <Pagination2 department={selectedOption.value} />
+      <Pagination2 department={selectedOption ? selectedOption.value : ""} />
     </div>
   );
 };

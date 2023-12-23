@@ -3,6 +3,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 // let data = [
 //   { name: "hamza" },
@@ -57,22 +58,25 @@ const PaginationComponent = ({ department }) => {
   const [data, setData] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
-  const url = useSelector((stete) => stete.url);
-
+  const url = useSelector((state) => state.url);
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${url}/gettest?department=Biochemistry`
+        `${url}/gettest?department=${department}`
       );
       console.log(response);
       setData(response.data.data);
+      setPageNumber(0);
+      department = null;
     } catch (error) {
       console.log("department", url);
+
+      department = null;
       console.log(error);
     }
   };
+  // Trigger the request when currentDepartment changes
 
-  if (department) getData();
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const startIndex = pageNumber * itemsPerPage;
@@ -98,6 +102,7 @@ const PaginationComponent = ({ department }) => {
           color="primary"
         />
       </Stack>
+      <button onClick={getData}>Call</button>
     </div>
   );
 };
