@@ -104,16 +104,17 @@ const Group = () => {
       for (const item of metaData) {
         if (item[param] === "") {
           // setErrorMessage(``);
-          ErrorAlert({ text: `${param} is required.` });
+          ErrorAlert({ text: `${param} is required.`, timer: 2000 });
           console.log("at line 103");
           return;
         }
       }
     }
-    if (!selectedOption) return ErrorAlert({ text: `Department is required` });
-    if (!status) return ErrorAlert({ text: `Status is required` });
+    if (!selectedOption)
+      return ErrorAlert({ text: `Department is required`, timer: 2000 });
+    if (!status) return ErrorAlert({ text: `Status is required`, timer: 2000 });
     if (preview.length <= 0)
-      return ErrorAlert({ text: `Please Select the Tests.` });
+      return ErrorAlert({ text: `Please Select the Tests.`, timer: 2000 });
     console.log("...loading");
     try {
       let response = await axios.post(`${url}/labgroup`, {
